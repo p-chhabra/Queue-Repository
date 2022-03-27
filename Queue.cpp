@@ -20,15 +20,6 @@ class Queue
         size = 0;
     }
 
-    Queue(int capacity)
-    {
-        this->capacity = capacity;
-        arr = new T[capacity];
-        nextIndex = 0;
-        firstIndex = -1;
-        size = 0;
-    }
-
     int getSize()
     {
         return size;
@@ -51,9 +42,25 @@ class Queue
     ///Insert element
     void push(T ele)
     {
+        ///Dynamic Queue
         if(size == capacity){
-            cout<<"Queue Full"<<endl;
-            return;
+            T * newArr = new T[capacity*2];
+
+            int j = 0;
+            for(int i = firstIndex; i < capacity; i++,j++)
+            {
+                newArr[j] = arr[i];
+            }
+            for(int i = 0; i<firstIndex; i++)
+            {
+                newArr[j] = arr[i];
+                j++;
+            }
+            firstIndex = 0;
+            nextIndex = capacity;
+            capacity = 2*capacity;
+            delete []arr;
+            arr = newArr;
         }
         arr[nextIndex] = ele;
         nextIndex = (nextIndex + 1)%capacity;
@@ -81,7 +88,7 @@ class Queue
 
 int main()
 {
-    Queue<int> q1(5);
+    Queue<int> q1;
     q1.push(5);
     q1.push(2);
     q1.push(6);
