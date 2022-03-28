@@ -47,7 +47,6 @@ public:
         }
 
         Node<T> * n = new Node<T>(data);
-        n->data = data;
         tail->next = n;
         tail = n;
         size++;
@@ -63,12 +62,12 @@ public:
         if(!head)
         {
             cout<<"Queue Empty! Nothing to be deleted"<<endl;
-            size--;
             return;
         }
         Node<T> * temp = head;
-        delete temp;
         head = head->next;
+        temp->next = NULL;
+        delete temp;
         size--;
     }
 
@@ -81,6 +80,18 @@ public:
     {
         return size==0;
     }
+
+    void print()
+    {
+        if(isEmpty()) cout<<"Empty Queue"<<endl;
+        Node<T> * temp = head;
+        while(temp)
+        {
+            cout<<temp->data<<" ";
+            temp = temp->next;
+        }
+        cout<<endl;
+    }
 };
 
 int main()
@@ -92,10 +103,12 @@ int main()
     q1.push(8);
     q1.push(5);
     q1.push(3);
+    q1.print();
 
     cout<<q1.front()<<endl;
     q1.pop();
     q1.pop();
+    q1.print();
     cout<<q1.front()<<endl;
 
     if(q1.isEmpty()) cout<<"Empty Queue"<<endl;
