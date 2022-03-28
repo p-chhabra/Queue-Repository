@@ -98,5 +98,10 @@ int main()
     q1.pop();
     cout<<q1.front()<<endl;
 
+    if(q1.isEmpty()) cout<<"Empty Queue"<<endl;
+    else cout<<"Queue not Empty"<<endl;
+
+    cout<<"Size of Queue: "<<q1.getSize()<<endl;
+
     return 0;
 }
